@@ -6,4 +6,3 @@ def compute(x, y):
             "x must be between 0 and 100"
         else:
             return x + y
-
