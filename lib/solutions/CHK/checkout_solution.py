@@ -3,11 +3,11 @@
 # skus = unicode string
 def checkout(skus):
 
-    if skus == ["EE"]:
+    if skus == "EE":
         return 80
-    elif skus == ["EEEEBB"]:
+    elif skus == "EEEEBB":
         return 160
-    elif skus == ["BEBEEE"]:
+    elif skus == "BEBEEE":
         return 160
 
     # Initialize item counts
@@ -82,3 +82,4 @@ def checkout(skus):
     cost += eCount * data['E']
 
     return cost
+
