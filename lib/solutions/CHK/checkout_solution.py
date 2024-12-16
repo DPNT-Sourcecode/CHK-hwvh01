@@ -20,6 +20,7 @@ def checkout(skus):
     f = 0
 
     bSkip = 0
+    fSkip = 0
 
     freeB = 0
     freeF = 0
@@ -72,10 +73,13 @@ def checkout(skus):
                         bSkip += 1
                         e = 0  # Reset E count after the offer
                 elif sku == 'F':
+                    if fSkip != 0:
+                        fSkip -= 1
+                        continue
                     f += 1
                     fPrice += data['F']
                     if f == 2:  # "Buy 2 get 1 free" for F
-                        freeF += data["F"]
+                        fSkip += 1
                         f = 0
             else:
                 return -1  # Invalid SKU
@@ -91,8 +95,9 @@ def checkout(skus):
 
 
 # print(checkout("BEBEEE"))       # expected: 160, got: 145
-print(checkout("FF"))   # expected: 20
+# print(checkout("FF"))   # expected: 20
 # print(checkout("FFFF"))   # expected: 30
+
 
 
 
