@@ -21,9 +21,9 @@ def checkout(skus):
     }
 
     special_offers = {
-        'A': [(5, 200), (3, 130)],  # 3 A's for 130, 5 A's for 200
+        'A': [(5, 200), (3, 130)],  # 5 A's for 200, 3 A's for 130
         'B': [(2, 45)],  # 2 B's for 45
-        'E': [(2, 80)]  # 2 E's for 80
+        'E': [(2, 80)]  # 2 E's for 80 + 1 B free
     }
 
     for sku in skus:
@@ -44,17 +44,19 @@ def checkout(skus):
         else:
             return -1
 
-    if aCount >= 5:
-        offer_count = aCount // 5
-        cost += offer_count * special_offers['A'][0][1]
-        aCount %= 5
 
-    if aCount >= 3:
-        offer_count = bCount // 3
-        cost += offer_count * special_offers['A'][1][1]
-        bCount %= 3
+        if aCount >= 5:
+            offer_count = aCount // 5
+            cost += offer_count * special_offers['A'][0][1]  # Apply the 5 A's for 200 offer
+            aCount %= 5  # Remaining A's after applying the 5 A's offer
 
-    cost += aCount * data['A'] - 20
+        if aCount >= 3:
+            offer_count = aCount // 3
+            cost += offer_count * special_offers['A'][1][1]  # Apply the 3 A's for 130 offer
+            aCount %= 3  # Remaining A's after applying the 3 A's offer
+
+        # Regular price for remaining A's
+        cost += aCount * data['A']
 
     if bCount >= 2:
         offer_count = bCount // 2
@@ -73,4 +75,5 @@ def checkout(skus):
     cost += eCount * data['E']
 
     return cost
+
 
