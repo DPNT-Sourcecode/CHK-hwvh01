@@ -39,7 +39,25 @@ def checkout(skus):
     e = 0
     f = 0
     g = 0
-    h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z = [0] * 20
+    h = 0
+    i = 0
+    j = 0
+    k = 0
+    l = 0
+    m = 0
+    n = 0
+    o = 0
+    p = 0
+    q = 0
+    r = 0
+    s = 0
+    t = 0
+    u = 0
+    v = 0
+    w = 0
+    x = 0
+    y = 0
+    z = 0
 
     bSkip = 0
     fSkip = 0
@@ -232,6 +250,7 @@ def checkout(skus):
 # print(checkout("BEBEEE"))       # expected: 160, got: 145
 # print(checkout("FF"))   # expected: 20
 # print(checkout("FFFF"))   # expected: 30
+
 
 
 
