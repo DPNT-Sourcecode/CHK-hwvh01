@@ -230,11 +230,3 @@ def checkout(skus):
 
 
 
-
-
-
-
-
-
-
-
