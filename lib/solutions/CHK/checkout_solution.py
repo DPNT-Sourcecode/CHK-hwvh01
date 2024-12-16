@@ -21,9 +21,9 @@ def checkout(skus):
     }
 
     special_offers = {
-        'A': [(3, 130), (5, 200)],  # 3 A's for 130, 5 A's for 200
+        'A': [(5, 200), (3, 130)],  # 3 A's for 130, 5 A's for 200
         'B': [(2, 45)],  # 2 B's for 45
-        'E': [(2, 80, 1)]  # 2 E's for 80 + 1 B free
+        'E': [(2, 80)]  # 2 E's for 80
     }
 
     for sku in skus:
@@ -73,6 +73,7 @@ def checkout(skus):
     cost += eCount * data['E']
 
     return cost
+
 
 
 
