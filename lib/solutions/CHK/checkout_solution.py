@@ -64,7 +64,6 @@ def checkout(skus):
 
                     # When 2 E's are encountered, apply the offer
                     if e == 2:
-                        ePrice -= 40  # Subtract the excess cost (2 * 40)
                         freeB += 30  # Add free B (as 2 E's give 1 free B)
                         e = 0  # Reset E count after the offer
                 elif sku == 'F':
@@ -81,6 +80,7 @@ def checkout(skus):
     cost -= freeB
     cost -= freeF
     return cost
+
 
 
 
