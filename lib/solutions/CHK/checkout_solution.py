@@ -65,8 +65,7 @@ def checkout(skus):
     qSkip = 0
     uSkip = 0
 
-    freeB = 0
-    freeF = 0
+    groupHold = 0
 
     # Prices for items
     data = {
@@ -257,6 +256,7 @@ def checkout(skus):
 # print(checkout("BEBEEE"))       # expected: 160, got: 145
 # print(checkout("FF"))   # expected: 20
 # print(checkout("FFFF"))   # expected: 30
+
 
 
 
