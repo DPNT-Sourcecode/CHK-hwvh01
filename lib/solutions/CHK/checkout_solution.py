@@ -1,5 +1,4 @@
 
-
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -45,18 +44,18 @@ def checkout(skus):
             return -1
 
 
-        if aCount >= 5:
-            offer_count = aCount // 5
-            cost += offer_count * special_offers['A'][0][1]  # Apply the 5 A's for 200 offer
-            aCount %= 5  # Remaining A's after applying the 5 A's offer
+    if aCount >= 5:
+        offer_count = aCount // 5
+        cost += offer_count * special_offers['A'][0][1]  # Apply the 5 A's for 200 offer
+        aCount %= 5  # Remaining A's after applying the 5 A's offer
 
-        if aCount >= 3:
-            offer_count = aCount // 3
-            cost += offer_count * special_offers['A'][1][1]  # Apply the 3 A's for 130 offer
-            aCount %= 3  # Remaining A's after applying the 3 A's offer
+    if aCount >= 3:
+        offer_count = aCount // 3
+        cost += offer_count * special_offers['A'][1][1]  # Apply the 3 A's for 130 offer
+        aCount %= 3  # Remaining A's after applying the 3 A's offer
 
-        # Regular price for remaining A's
-        cost += aCount * data['A']
+    # Regular price for remaining A's
+    cost += aCount * data['A']
 
     if bCount >= 2:
         offer_count = bCount // 2
