@@ -184,7 +184,7 @@ def checkout(skus):
                     p += 1
                     pPrice += data['P']
                     if p == 5:
-                        pPrice -= 25
+                        pPrice -= 50
                         p = 0
                 elif sku == "Q":
                     if qSkip != 0:
@@ -254,6 +254,7 @@ def checkout(skus):
 # print(checkout("BEBEEE"))       # expected: 160, got: 145
 # print(checkout("FF"))   # expected: 20
 # print(checkout("FFFF"))   # expected: 30
+
 
 
 
