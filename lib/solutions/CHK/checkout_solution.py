@@ -93,7 +93,7 @@ def checkout(skus):
                     k += 1
                     kPrice += data['K']
                     if k == 2:
-                        kPrice -= 10
+                        kPrice -= 20
                         k = 0
                 elif sku == "L":
                     l += 1
@@ -200,6 +200,7 @@ def checkout(skus):
 # print(checkout("BEBEEE"))       # expected: 160, got: 145
 # print(checkout("FF"))   # expected: 20
 # print(checkout("FFFF"))   # expected: 30
+
 
 
 
