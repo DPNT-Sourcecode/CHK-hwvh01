@@ -12,6 +12,16 @@ def checkout(skus):
     ePrice = 0
     fPrice = 0
 
+    a = 0
+    b = 0
+    c = 0
+    d = 0
+    e = 0
+    f = 0
+
+    freeB = 0
+    freeF = 0
+
     offset = 0
 
     # Prices for items
@@ -35,13 +45,48 @@ def checkout(skus):
     for i in range(0, len(skus)):
         if isinstance(skus[i], str) and skus[i].isalpha():
             if skus[i] in data:
-                
+                match skus[1]:
+                    case 'A':
+                        a += 1
+                        aPrice += data[skus[i]]
+                        if a == 3:
+                            aPrice -= 20
+                        if a == 5:
+                            aPrice -= 20
+                            a = 0
+                    case 'B':
+                        b += 1
+                        bPrice += data[skus[i]]
+                        if b == 2:
+                            bPrice -= 15
+                            b = 0
+                    case 'C':
+                        c += 1
+                        cPrice += data[skus[i]]
+                    case 'D':
+                        d += 1
+                        dPrice += data[skus[i]]
+                    case 'E':
+                        e += 1
+                        ePrice += data[skus[i]]
+                        if e == 2:
+                            freeB += 1
+                            e = 0
+                    case 'F':
+                        f += 1
+                        fPrice += data[skus[i]]
+                        if f == 2:
+                            freeF += 1
+        else:
+            return -1
+    cost = sum([aPrice, bPrice, cPrice, dPrice, ePrice, fPrice])
+    cost -= freeB
+    cost -= freeF
+    return cost
+
 
 
 
 
 
     return cost
-
-
-
