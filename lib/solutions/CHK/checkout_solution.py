@@ -44,7 +44,9 @@ def checkout(skus):
                 elif sku == 'E':
                     e += 1
                     ePrice += data['E']
+                    # Apply special offer for 2 E's at 80
                     if e == 2:
+                        ePrice -= 40  # Correct pricing for 2 E's
                         freeB += 1  # Free B with 2 E's
                         e = 0
                 elif sku == 'F':
@@ -64,15 +66,6 @@ def checkout(skus):
     total_cost -= freeF * data['F']  # Subtract the cost of free F's
 
     return total_cost
-
-
-
-
-
-
-
-
-
 
 
 
