@@ -48,6 +48,7 @@ def checkout(skus):
                         a = 0
                 elif sku == 'B':
                     b += 1
+                    print("B ", b)
                     bPrice += data['B']
                     if b == 2:
                         bPrice -= 15  # Discount for 2 B's
@@ -78,10 +79,10 @@ def checkout(skus):
         else:
             return -1  # Invalid SKU
     cost = sum([aPrice, bPrice, cPrice, dPrice, ePrice, fPrice])
-    if b != 0:
+    if bPrice != 0:
         print("free b", freeB)
         cost -= freeB
-    if f != 0:
+    if fPrice != 0:
         cost -= freeF
     return cost
 
@@ -89,6 +90,7 @@ def checkout(skus):
 # print(checkout("FFF"))       # Expected output: 80
 print(checkout("EEEEBB"))   # Expected output: 160
 # print(checkout("BEBEEE"))   # Expected output: 160
+
 
 
 
