@@ -2,101 +2,33 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-
     basket = []
 
-    aPrice = 0
-    bPrice = 0
-    cPrice = 0
-    dPrice = 0
-    ePrice = 0
-    fPrice = 0
-    gPrice = 0
-    hPrice = 0
-    iPrice = 0
-    jPrice = 0
-    kPrice = 0
-    lPrice = 0
-    mPrice = 0
-    nPrice = 0
-    oPrice = 0
-    pPrice = 0
-    qPrice = 0
-    rPrice = 0
-    sPrice = 0
-    tPrice = 0
-    uPrice = 0
-    vPrice = 0
-    wPrice = 0
-    xPrice = 0
-    yPrice = 0
-    zPrice = 0
+    # Initialize prices for items
+    aPrice = bPrice = cPrice = dPrice = ePrice = fPrice = gPrice = hPrice = iPrice = jPrice = kPrice = lPrice = 0
+    mPrice = nPrice = oPrice = pPrice = qPrice = rPrice = sPrice = tPrice = uPrice = vPrice = wPrice = xPrice = 0
+    yPrice = zPrice = 0
 
-    a = 0
-    b = 0
-    c = 0
-    d = 0
-    e = 0
-    f = 0
-    g = 0
-    h = 0
-    i = 0
-    j = 0
-    k = 0
-    l = 0
-    m = 0
-    n = 0
-    o = 0
-    p = 0
-    q = 0
-    r = 0
-    s = 0
-    t = 0
-    u = 0
-    v = 0
-    w = 0
-    x = 0
-    y = 0
-    z = 0
+    # Initialize counts for items
+    a = b = c = d = e = f = g = h = i = j = k = l = m = n = o = p = q = r = s = t = u = v = w = x = y = z = 0
 
-    bSkip = 0
-    fSkip = 0
-    mSkip = 0
-    qSkip = 0
-    uSkip = 0
+    # Initialize skips
+    bSkip = fSkip = mSkip = qSkip = uSkip = 0
 
-    groupHold = 0
+    # Group for the "buy any 3 for 45" discount (S, T, X, Y, Z)
+    groupItems = {'S', 'T', 'X', 'Y', 'Z'}
+    groupCount = {item: 0 for item in groupItems}
 
     # Prices for items
     data = {
-        "A": 50,
-        "B": 30,
-        "C": 20,
-        "D": 15,
-        "E": 40,
-        "F": 10,
-        "G": 20,
-        "H": 10,
-        "I": 35,
-        "J": 60,
-        "K": 80,
-        "L": 90,
-        "M": 15,
-        "N": 40,
-        "O": 10,
-        "P": 50,
-        "Q": 30,
-        "R": 50,
-        "S": 30,
-        "T": 20,
-        "U": 40,
-        "V": 50,
-        "W": 20,
-        "X": 90,
-        "Y": 10,
-        "Z": 50,
+        "A": 50, "B": 30, "C": 20, "D": 15, "E": 40, "F": 10, "G": 20, "H": 10,
+        "I": 35, "J": 60, "K": 70, "L": 90, "M": 15, "N": 40, "O": 10, "P": 50,
+        "Q": 30, "R": 50, "S": 20, "T": 20, "U": 40, "V": 50, "W": 20, "X": 17,
+        "Y": 20, "Z": 21
     }
+
     skusort = sorted(skus, reverse=True)
+
     for sku in skusort:
         if isinstance(sku, str) and sku.isalpha() and sku.capitalize():
             if sku in data:
@@ -129,17 +61,16 @@ def checkout(skus):
                     ePrice += data['E']
                     # When 2 E's are encountered, apply the offer
                     if e == 2:
-                        # freeB += 30  # Add free B (as 2 E's give 1 free B)
-                        bSkip += 1
-                        e = 0  # Reset E count after the offer
+                        bSkip += 1  # Free B for 2 E's
+                        e = 0  # Reset E count
                 elif sku == 'F':
                     if fSkip != 0:
                         fSkip -= 1
                         continue
                     f += 1
                     fPrice += data['F']
-                    if f == 2:  # "Buy 2 get 1 free" for F
-                        fSkip += 1
+                    if f == 2:
+                        fSkip += 1  # "Buy 2 get 1 free" for F
                         f = 0
                 elif sku == "G":
                     g += 1
@@ -206,9 +137,11 @@ def checkout(skus):
                 elif sku == "S":
                     s += 1
                     sPrice += data['S']
+                    groupCount['S'] += 1
                 elif sku == "T":
                     t += 1
                     tPrice += data['T']
+                    groupCount['T'] += 1
                 elif sku == "U":
                     if uSkip != 0:
                         uSkip -= 1
@@ -232,30 +165,38 @@ def checkout(skus):
                 elif sku == "X":
                     x += 1
                     xPrice += data['X']
+                    groupCount['X'] += 1
                 elif sku == "Y":
                     y += 1
                     yPrice += data['Y']
+                    groupCount['Y'] += 1
                 elif sku == "Z":
                     z += 1
                     zPrice += data['Z']
+                    groupCount['Z'] += 1
 
             else:
                 return -1  # Invalid SKU
         else:
             return -1  # Invalid SKU
-    cost = sum([aPrice, bPrice, cPrice, dPrice, ePrice, fPrice, gPrice, hPrice, iPrice, jPrice, kPrice, lPrice, mPrice, nPrice, oPrice, pPrice, qPrice, rPrice, sPrice, tPrice, uPrice, vPrice, wPrice, xPrice, yPrice, zPrice])
 
-    if bPrice != 0:
-        print("free b ", freeB)
-        cost -= freeB
-    if fPrice != 0:
-        cost -= freeF
+    # Apply group discount for S, T, X, Y, Z
+    groupItemsTotal = sum(groupCount.values())
+    if groupItemsTotal >= 3:
+        groupDiscounts = (groupItemsTotal // 3) * 45  # For every 3 items from group
+        sPrice += tPrice += xPrice += yPrice += zPrice -= groupDiscounts  # Apply the discount to the group items
+
+    cost = sum([aPrice, bPrice, cPrice, dPrice, ePrice, fPrice, gPrice, hPrice, iPrice, jPrice, kPrice, lPrice,
+                mPrice, nPrice, oPrice, pPrice, qPrice, rPrice, sPrice, tPrice, uPrice, vPrice, wPrice, xPrice, yPrice,
+                zPrice])
+
     return cost
 
 
 # print(checkout("BEBEEE"))       # expected: 160, got: 145
 # print(checkout("FF"))   # expected: 20
 # print(checkout("FFFF"))   # expected: 30
+
 
 
 
