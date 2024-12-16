@@ -52,7 +52,7 @@ def checkout(skus):
                         if a == 3:
                             aPrice -= 20
                         if a == 5:
-                            aPrice -= 20
+                            aPrice -= 30
                             a = 0
                     case 'B':
                         b += 1
@@ -78,12 +78,13 @@ def checkout(skus):
                         if f == 3:  # This applies the new offer for F (3 Fs = 1 free)
                             freeF += 1
                             f = 0
-            else:
-                return -1
+        else:
+            return -1
     cost = sum([aPrice, bPrice, cPrice, dPrice, ePrice, fPrice])
     cost -= freeB
     cost -= freeF
     return cost
+
 
 
 
