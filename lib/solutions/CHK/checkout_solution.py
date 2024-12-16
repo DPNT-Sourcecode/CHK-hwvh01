@@ -62,11 +62,13 @@ def checkout(skus):
         cost += offer_count * special_offers['B'][0][1]
         bCount %= 2
 
+    # Apply special offers for E (2 E's for 80 + 1 B free)
     if eCount >= 2:
         offer_count = eCount // 2
-        cost += offer_count * special_offers['E'][0][1]
-        bCount += offer_count
-        eCount %= 2
+        cost += offer_count * special_offers['E'][0][1]  # Apply the 2 E's for 80
+        # Get 1 free B for each offer applied
+        bCount += offer_count  # Add free B's to the count, but we won't charge for them
+        eCount %= 2  # Keep any leftover E's
 
     cost += bCount * data['B']
     cost += cCount * data['C']
@@ -74,5 +76,6 @@ def checkout(skus):
     cost += eCount * data['E']
 
     return cost
+
 
 
