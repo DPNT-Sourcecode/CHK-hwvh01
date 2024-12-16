@@ -7,14 +7,11 @@ def checkout(skus):
     aCount = int(0)
     bCount = int(0)
 
-    if isinstance(skus, str):
-        for sku in skus:
-            if != sku.isalnum():
-                if sku = 'a':
-                    aCount += 1
-                elif sku = 'b'
+    current = ['a', 'b', 'c', 'd']
 
-
-    else:
-        return -1
-
+    for sku in skus:
+        if isinstance(sku, str) and sku.isalpha():
+            if sku not in current:
+                return -1
+            else:
+                if
