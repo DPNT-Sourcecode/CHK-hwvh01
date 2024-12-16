@@ -1,80 +1,84 @@
+from collections import Counter
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
+    # Prices for individual items
+    prices = {'A': 50, 'B': 30, 'C': 20, 'D': 15, 'E': 40}
 
-    aCount = int(0)
-    bCount = int(0)
-    cCount = int(0)
-    dCount = int(0)
-    eCount = int(0)
-
-    cost = 0
-
-    data = {
-        "A": 50,
-        "B": 30,
-        "C": 20,
-        "D": 15,
-        "E": 40,
+    # Special offers
+    offers = {
+        'A': [(3, 130), (5, 200)],
+        'B': [(2, 45)],
+        'E': [(2, 0)]  # 2E get 1B free
     }
 
-    special_offers = {
-        'A': [(5, 200), (3, 130)],  # 5 A's for 200, 3 A's for 130
-        'B': [(2, 45)],  # 2 B's for 45
-        'E': [(2, 80)]  # 2 E's for 80 + 1 B free
-    }
+    # Count the number of each SKU in the input string
+    sku_count = Counter(skus)
 
-    for sku in skus:
-        if isinstance(sku, str) and sku.isalpha():
-            if sku not in data:
-                return -1
+    # Check for any invalid SKU
+    if any(sku not in prices for sku in sku_count):
+        return -1
 
-            if sku == "A":
-                aCount += 1
-            elif sku == "B":
-                bCount += 1
-            elif sku == "C":
-                cCount += 1
-            elif sku == "D":
-                dCount += 1
-            elif sku == "E":
-                eCount += 1
+    total_price = 0
+
+    # Process each item in the basket
+    for item, count in sku_count.items():
+        if item == 'A':
+            # Apply the best offer for A
+            price = 0
+            for quantity, offer_price in offers['A']:
+                num_bundles = count // quantity
+                price += num_bundles * offer_price
+                count -= num_bundles * quantity
+            # For remaining items, charge at regular price
+            price += count * prices['A']
+            total_price += price
+
+        elif item == 'B':
+            # Apply the best offer for B
+            price = 0
+            for quantity, offer_price in offers['B']:
+                num_bundles = count // quantity
+                price += num_bundles * offer_price
+                count -= num_bundles * quantity
+            # For remaining items, charge at regular price
+            price += count * prices['B']
+            total_price += price
+
+        elif item == 'E':
+            # Apply the special offer for E
+            price = 0
+            if count >= 2:
+                # Bundle 2E and get 1B free
+                num_bundles = count // 2
+                price += num_bundles * (2 * prices['E'])  # 2 E's at regular price
+                count -= num_bundles * 2
+                # For each bundle, we get 1 free B, so adjust B's count
+                sku_count['B'] += num_bundles
+
+            # For remaining items, charge at regular price
+            price += count * prices['E']
+            total_price += price
+
         else:
-            return -1
+            # For items C and D, charge at regular price
+            total_price += count * prices[item]
 
+    # Now, process item B because the offer may have changed its count due to E's offer
+    if 'B' in sku_count:
+        count = sku_count['B']
+        price = 0
+        for quantity, offer_price in offers['B']:
+            num_bundles = count // quantity
+            price += num_bundles * offer_price
+            count -= num_bundles * quantity
+        price += count * prices['B']
+        total_price += price
 
-    if aCount >= 5:
-        offer_count = aCount // 5
-        cost += offer_count * special_offers['A'][0][1]  # Apply the 5 A's for 200 offer
-        aCount %= 5  # Remaining A's after applying the 5 A's offer
+    return total_price
 
-    if aCount >= 3:
-        offer_count = aCount // 3
-        cost += offer_count * special_offers['A'][1][1]  # Apply the 3 A's for 130 offer
-        aCount %= 3  # Remaining A's after applying the 3 A's offer
-
-    # Regular price for remaining A's
-    cost += aCount * data['A']
-
-    if bCount >= 2:
-        offer_count = bCount // 2
-        cost += offer_count * special_offers['B'][0][1]
-        bCount %= 2
-
-    # Apply special offers for E (2 E's for 80 + 1 B free)
-    if eCount >= 2:
-        offer_count = eCount // 2
-        cost += offer_count * special_offers['E'][0][1]  # Apply the 2 E's for 80
-        # Get 1 free B for each offer applied
-        eCount %= 2  # Keep any leftover E's
-
-    cost += bCount * data['B']
-    cost += cCount * data['C']
-    cost += dCount * data['D']
-    cost += eCount * data['E']
-
-    return cost
 
 
 
