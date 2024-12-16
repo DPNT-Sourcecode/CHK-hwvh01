@@ -238,7 +238,8 @@ def checkout(skus):
                 return -1  # Invalid SKU
         else:
             return -1  # Invalid SKU
-    cost = sum([aPrice, bPrice, cPrice, dPrice, ePrice, fPrice])
+    cost = sum([aPrice, bPrice, cPrice, dPrice, ePrice, fPrice, gPrice, hPrice, iPrice, jPrice, kPrice, lPrice, mPrice, nPrice, oPrice, pPrice, qPrice, rPrice, sPrice, tPrice, uPrice, vPrice, wPrice, xPrice, yPrice, zPrice])
+
     if bPrice != 0:
         print("free b ", freeB)
         cost -= freeB
@@ -250,6 +251,7 @@ def checkout(skus):
 # print(checkout("BEBEEE"))       # expected: 160, got: 145
 # print(checkout("FF"))   # expected: 20
 # print(checkout("FFFF"))   # expected: 30
+
 
 
 
