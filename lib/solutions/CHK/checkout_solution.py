@@ -142,6 +142,9 @@ def checkout(skus):
                     if f == 2:  # "Buy 2 get 1 free" for F
                         fSkip += 1
                         f = 0
+                elif sku == "G":
+                    g += 1
+                    gPrice += data['G']
                 elif sku == "H":
                     h += 1
                     hPrice += data['H']
@@ -251,6 +254,7 @@ def checkout(skus):
 # print(checkout("BEBEEE"))       # expected: 160, got: 145
 # print(checkout("FF"))   # expected: 20
 # print(checkout("FFFF"))   # expected: 30
+
 
 
 
