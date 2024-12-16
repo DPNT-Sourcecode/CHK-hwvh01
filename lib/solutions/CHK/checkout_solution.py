@@ -43,7 +43,7 @@ def checkout(skus):
     }
 
     for i in range(0, len(skus)):
-        if isinstance(skus[i], str) and skus[i].isalpha():
+        if isinstance(skus[i], str) and skus[i].isalpha() and skus[i].capitalize():
             if skus[i] in data:
                 match skus[i]:
                     case 'A':
@@ -78,12 +78,15 @@ def checkout(skus):
                         if f == 3:  # This applies the new offer for F (3 Fs = 1 free)
                             freeF += 1
                             f = 0
+            else:
+                return -1
         else:
             return -1
     cost = sum([aPrice, bPrice, cPrice, dPrice, ePrice, fPrice])
     cost -= freeB
     cost -= freeF
     return cost
+
 
 
 
