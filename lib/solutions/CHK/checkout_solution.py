@@ -44,15 +44,17 @@ def checkout(skus):
         else:
             return -1
 
-    if aCount >= 3:
+    if aCount >= 5:
         offer_count = aCount // 5
-        cost += offer_count * special_offers['A'][1][1]
+        cost += offer_count * special_offers['A'][0][1]
         aCount %= 5
 
     if aCount >= 3:
         offer_count = bCount // 3
-        cost += offer_count * special_offers['A'][0][1]
+        cost += offer_count * special_offers['A'][1][1]
         bCount %= 3
+
+    cost += aCount * data['A']
 
     if bCount >= 2:
         offer_count = bCount // 2
@@ -65,13 +67,13 @@ def checkout(skus):
         bCount += offer_count
         eCount %= 2
 
-    cost += aCount * data['A']
     cost += bCount * data['B']
     cost += cCount * data['C']
     cost += dCount * data['D']
     cost += eCount * data['E']
 
     return cost
+
 
 
 
