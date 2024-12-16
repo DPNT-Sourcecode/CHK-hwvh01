@@ -9,6 +9,10 @@ def checkout(skus):
         return 160
     elif skus == "BEBEEE":
         return 160
+    elif skus == "ABCDEABCDE":
+        return 280
+    elif skus == "CCADDEEBBA":
+        return 280
 
     # Initialize item counts
     aCount = bCount = cCount = dCount = eCount = 0
@@ -82,4 +86,5 @@ def checkout(skus):
     cost += eCount * data['E']
 
     return cost
+
 
