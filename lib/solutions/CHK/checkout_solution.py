@@ -181,11 +181,15 @@ def checkout(skus):
             return -1  # Invalid SKU
 
     # Apply group discount for S, T, X, Y, Z
-    groupItemsTotal = sum(groupCount.values())
-    if groupItemsTotal >= 3:
-        groupDiscounts = (groupItemsTotal // 3) * 45  # For every 3 items from group
-        sPrice += tPrice += xPrice += yPrice += zPrice -= groupDiscounts  # Apply the discount to the group items
+    totalGroupItems = sum(groupCount.values())  # Total items from group
+    groupDiscount = (totalGroupItems // 3) * 45  # Every 3 items from the group give 45 discount
 
+    # Apply the discount to the prices of group items
+    sPrice -= groupDiscount
+    tPrice -= groupDiscount
+    xPrice -= groupDiscount
+    yPrice -= groupDiscount
+    zPrice -= groupDiscount
     cost = sum([aPrice, bPrice, cPrice, dPrice, ePrice, fPrice, gPrice, hPrice, iPrice, jPrice, kPrice, lPrice,
                 mPrice, nPrice, oPrice, pPrice, qPrice, rPrice, sPrice, tPrice, uPrice, vPrice, wPrice, xPrice, yPrice,
                 zPrice])
@@ -196,6 +200,7 @@ def checkout(skus):
 # print(checkout("BEBEEE"))       # expected: 160, got: 145
 # print(checkout("FF"))   # expected: 20
 # print(checkout("FFFF"))   # expected: 30
+
 
 
 
