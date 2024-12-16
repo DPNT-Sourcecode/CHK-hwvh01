@@ -31,15 +31,15 @@ def checkout(skus):
             if sku not in data:
                 return -1
 
-            if sku == 'A':
+            if sku == "A":
                 aCount += 1
-            elif sku == 'B':
+            elif sku == "B":
                 bCount += 1
-            elif sku == 'C':
+            elif sku == "C":
                 cCount += 1
-            elif sku == 'D':
+            elif sku == "D":
                 dCount += 1
-            elif sku == 'E':
+            elif sku == "E":
                 eCount += 1
         else:
             return -1
@@ -62,7 +62,7 @@ def checkout(skus):
     if eCount >= 2:
         offer_count = eCount // 2
         cost += offer_count * special_offers['E'][0][1]
-        bCount += offer_count * special_offers['E'][0][1]
+        bCount += offer_count
         eCount %= 2
 
     cost += aCount * data['A']
@@ -72,6 +72,7 @@ def checkout(skus):
     cost += eCount * data['E']
 
     return cost
+
 
 
 
