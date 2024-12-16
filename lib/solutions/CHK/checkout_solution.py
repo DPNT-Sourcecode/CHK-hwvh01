@@ -35,8 +35,8 @@ def checkout(skus):
         "E": 40,
         "F": 10,
     }
-
-    for sku in skus:
+    skusort = sorted(skus, reverse=True)
+    for sku in skusort:
         if isinstance(sku, str) and sku.isalpha() and sku.capitalize():
             if sku in data:
                 # Apply the offers based on the item
@@ -84,15 +84,16 @@ def checkout(skus):
     cost = sum([aPrice, bPrice, cPrice, dPrice, ePrice, fPrice])
     if bPrice != 0:
         print("free b ", freeB)
-        # cost -= freeB
+        cost -= freeB
     if fPrice != 0:
         cost -= freeF
     return cost
 
 
-print(checkout("BEBEEE"))       # expected: 160, got: 145
-# print(checkout("FF"))   # expected: 20
+# print(checkout("BEBEEE"))       # expected: 160, got: 145
+print(checkout("FF"))   # expected: 20
 # print(checkout("FFFF"))   # expected: 30
+
 
 
 
