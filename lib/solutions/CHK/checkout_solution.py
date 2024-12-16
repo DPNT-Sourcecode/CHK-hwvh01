@@ -62,6 +62,7 @@ def checkout(skus):
                     e += 1
                     ePrice += data['E']
                     print(ePrice)
+                    print(e)
                     # When 2 E's are encountered, apply the offer
                     if e == 2:
                         freeB += 30  # Add free B (as 2 E's give 1 free B)
@@ -69,8 +70,8 @@ def checkout(skus):
                 elif sku == 'F':
                     f += 1
                     fPrice += data['F']
-                    if f == 3:  # "Buy 2 get 1 free" for F
-                        freeF += 1
+                    if f == 2:  # "Buy 2 get 1 free" for F
+                        freeF += data["F"]
                         f = 0
             else:
                 return -1  # Invalid SKU
@@ -78,15 +79,17 @@ def checkout(skus):
             return -1  # Invalid SKU
     cost = sum([aPrice, bPrice, cPrice, dPrice, ePrice, fPrice])
     if b != 0:
+        print("free b", freeB)
         cost -= freeB
     if f != 0:
         cost -= freeF
     return cost
 
 
-print(checkout("EE"))       # Expected output: 80
-# print(checkout("EEEEBB"))   # Expected output: 160
+# print(checkout("FFF"))       # Expected output: 80
+print(checkout("EEEEBB"))   # Expected output: 160
 # print(checkout("BEBEEE"))   # Expected output: 160
+
 
 
 
