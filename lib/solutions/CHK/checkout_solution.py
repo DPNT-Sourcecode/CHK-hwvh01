@@ -71,20 +71,23 @@ def checkout(skus):
                         ePrice += data[skus[i]]
                         if e == 2:
                             ePrice += data[skus[i]]
-                            bPrice -= data['B']
+                            freeB += data["B"]
                             e = 0
                     case 'F':
                         f += 1
                         fPrice += data[skus[i]]
                         if f == 3:  # This applies the new offer for F (3 Fs = 1 free)
-                            fPrice -= data['F']
+                            freeF += data["F"]
                             f = 0
             else:
                 return -1
         else:
             return -1
     cost = sum([aPrice, bPrice, cPrice, dPrice, ePrice, fPrice])
+    cost -= freeB
+    cost -= freeF
     return cost
+
 
 
 
